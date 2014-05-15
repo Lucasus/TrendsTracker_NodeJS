@@ -1,4 +1,4 @@
 TrendsTracker_NodeJS
 ====================
 
-Trends Tracker rewritten to NodeJS
+Trends Tracker will be rewritten to NodeJS in this project.
