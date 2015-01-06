@@ -1,7 +1,40 @@
 doctype html
-html
+html(ng-app='trendsTrackerApp')
   head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/site.css')
   body
-    block content
+    header.navbar.navbar-default.navbar-static-top(role='baner')
+      div.container
+        div.navbar-header
+          a.navbar-brand(href='/') Trends Tracker
+    div.container.body-content
+      div.row
+        block content
+        hr
+        footer
+          div.row
+            div.col-lg-12
+              p Copyright &copy; Łukasz Wiatrak 2014
+
+    script(src='/js/libs/angular.js')
+    script(src='/js/libs/angular-route.js')
+    script(src='/js/libs/angular-resource.js')
+    script(src='/js/libs/jquery-1.9.1.js')
+    script(src='/js/libs/ui-bootstrap-0.10.0.js')
+    script(src='/js/libs/ui-bootstrap-tpls-0.10.0.js')
+    script(src='/js/libs/bootstrap.js')
+
+    script(src='/js/app.js')
+    script(src='/js/services/keywordsResource.js')
+    script(src='/js/services/spinner.js')
+    script(src='/js/controllers/keywordsCtrl.js')
+    script(src='/js/controllers/keywordCtrl.js')
+    script(src='/js/controllers/keywordEdit.js')
+    script(src='/js/controllers/spinnerCtrl.js')
+    script(src='/js/directives/confirm.js')
+
+

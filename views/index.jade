@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div#leftCol.col-md-3
+    ul.nav.nav-pills.nav-stacked
+      li.active
+        a(href='#/keywords') Keywords
+  div.col-md-9.rightColumn
+    div.loader(ng-controller='SpinnerCtrl', ng-show='spinner.loading')
+    div#mainView.mainView(ng-view='')
+
+

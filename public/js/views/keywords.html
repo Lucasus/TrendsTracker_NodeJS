@@ -1,0 +1,51 @@
+﻿<div>
+    <h3>Keywords</h3>
+</div>
+
+<div class="form-inline" role="form">
+    <div class="form-group">
+        Filter by
+        <label class="sr-only" for="searchName">Name</label>
+        <input type="text" class="form-control" placeholder="Enter name" data-ng-model="keywordsList.searchTerm">
+    </div>
+    <button id="cmdSearch" type="button" class="btn btn-primary" data-ng-click="search()">Search</button>
+    <div class="btn-group pull-right">
+        <button class="btn btn-success" data-ng-click="showDialog('')">
+            <span class=" glyphicon glyphicon-plus">
+            </span> Add keyword
+        </button>
+    </div>
+</div>
+
+<div style="margin-top: 10px;">
+    <table id="keywordsList" class="table table-striped">
+        <tr>
+            <th><button type="button" class="btn-link tableBtn" data-ng-click="sort('name')">Name</button></th>
+            <th style="width: 50px;"></th>
+            <th style="width: 50px;"></th>
+        </tr>
+        <tr data-ng-repeat="keyword in keywordsList.items">
+            <td><a class="keywordUrl" href="#/keywords/{{keyword.urlFriendlyName}}">{{keyword.name}}</a></td>
+            <td>
+                <button type="button" class="cmdEdit btn-link tableBtn" data-ng-click="showDialog(keyword.id)">Edit</button>
+            </td>
+            <td>
+                <button type="button" class="cmdDelete btn-link tableBtn" data-ng-confirm-message="Are you sure?" data-ng-confirm-click="delete(keyword.id)">Delete</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-md-offset-2 col-md-8 col-md-offset-2 text-center">
+        <div data-ng-show="keywordsList.totalRecordsCount > 0">
+            <div>
+                <div data-pagination="" data-previous-text="<" data-next-text=">" data-first-text="<<" data-last-text=">>"
+                     data-on-select-page="pageChanged(page)" data-total-items="keywordsList.totalRecordsCount" data-page="keywordsList.page"
+                     data-boundary-links="true" class="pagination pagination-sm" data-max-size="5" data-rotate="false" data-items-per-page="keywordsList.pageSize">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
