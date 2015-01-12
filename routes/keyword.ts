@@ -13,7 +13,7 @@ exports.get = function(req, res, next){
   }
   else
   {
-      var pageSize = 3;
+      var pageSize = 5;
       req.models.Keyword.getPage(Number(req.query.page), pageSize, req.query.searchTerm, req.query.sortType, function(error, keywords) {
           if (error) {
               return next(error);
@@ -24,7 +24,7 @@ exports.get = function(req, res, next){
               sortType: req.query.sortType,
               pageSize: pageSize,
               page: req.query.page,
-              totalRecordsCount: 18
+              totalRecordsCount: 11
           });
       });
   }
