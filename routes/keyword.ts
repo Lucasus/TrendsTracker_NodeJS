@@ -24,7 +24,7 @@ exports.get = function(req, res, next){
               sortType: req.query.sortType,
               pageSize: pageSize,
               page: req.query.page,
-              totalRecordsCount: 17
+              totalRecordsCount: 18
           });
       });
   }
