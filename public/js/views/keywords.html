@@ -25,12 +25,12 @@
             <th style="width: 50px;"></th>
         </tr>
         <tr data-ng-repeat="keyword in keywordsList.items">
-            <td><a class="keywordUrl" href="#/keywords/{{keyword.urlFriendlyName}}">{{keyword.name}}</a></td>
+            <td><a class="keywordUrl" href="#/keywords/{{keyword.name}}">{{keyword.name}}</a></td>
             <td>
-                <button type="button" class="cmdEdit btn-link tableBtn" data-ng-click="showDialog(keyword.id)">Edit</button>
+                <button type="button" class="cmdEdit btn-link tableBtn" data-ng-click="showDialog(keyword._id)">Edit</button>
             </td>
             <td>
-                <button type="button" class="cmdDelete btn-link tableBtn" data-ng-confirm-message="Are you sure?" data-ng-confirm-click="delete(keyword.id)">Delete</button>
+                <button type="button" class="cmdDelete btn-link tableBtn" data-ng-confirm-message="Are you sure?" data-ng-confirm-click="delete(keyword._id)">Delete</button>
             </td>
         </tr>
     </table>

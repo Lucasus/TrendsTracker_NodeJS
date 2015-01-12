@@ -1,4 +1,4 @@
-///<reference path="../typings/references.ts" />
+///<reference path="../typings/references.ts" />\
 exports.keyword = require('./keyword');
 
 /* GET home page. */
