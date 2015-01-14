@@ -4,86 +4,79 @@
 exports.get = function(req, res, next){
   if(req.query.id)
   {
-      req.models.Keyword.findById(req.query.id, function(error, keyword) {
-          if (error) {
-              return next(error);
-          }
-          res.send(keyword);
-      });
+      req.models.Keyword.findById(req.query.id).exec()
+          .then(function(keyword){
+              res.send(keyword);
+          }).onReject(err => next(err));
   }
   else
   {
       var pageSize = 5;
-      req.models.Keyword.getPage(Number(req.query.page), pageSize, req.query.searchTerm, req.query.sortType, function(error, keywords) {
-          if (error) {
-              return next(error);
-          }
-          res.send({
-              items: keywords,
-              searchTerm: req.query.searchTerm,
-              sortType: req.query.sortType,
-              pageSize: pageSize,
-              page: req.query.page,
-              totalRecordsCount: 11
+      var totalKeywords;
+
+      req.models.Keyword.getCount(req.query.searchTerm)
+          .then(function(count){
+              totalKeywords = count;
+              return req.models.Keyword.getPage(Number(req.query.page), pageSize, req.query.searchTerm, req.query.sortColumn, req.query.sortType);
+          })
+          .then(function(keywords){
+              res.send({
+                  items: keywords,
+                  searchTerm: req.query.searchTerm,
+                  sortColumn: req.query.sortColumn,
+                  sortType: req.query.sortType,
+                  pageSize: pageSize,
+                  page: req.query.page,
+                  totalRecordsCount: totalKeywords
+              });
+          }).onReject(err => {
+              next(err);
           });
-      });
   }
 };
 
 exports.details = function(req, res, next){
-    req.models.Keyword.findOne({ name: req.params.name }, function(error, keyword) {
-        if (error) {
-            return next(error);
-        }
-        res.send(keyword);
-    });
+    req.models.Keyword.findOne({ name: req.params.name }).exec()
+        .then(function(keyword){
+            res.send(keyword);
+        }).onReject(err => next(err))
 };
 
-exports.create = function(req, res, next){
-    var keyword = req.body;
-    if (!keyword) {
+exports.add = function(req, res, next){
+    if (!req.body) {
         return next(new Error('No keyword payload.'));
     }
-    req.models.Keyword.create(keyword, function(error, keywordResponse) {
-        if (error) {
-            return next(error);
-        }
-        res.send(keywordResponse);
-    });
+    req.models.Keyword.create(req.body).exec()
+        .then(function(keyword){
+            res.send(keyword);
+        }).onReject(err => next(err));
 };
 
-exports.edit = function(req, res, next){
+exports.edit = function(req, res, next) {
     if (!req.params.id) {
         return next(new Error('No keyword ID.'));
     }
-    req.models.Keyword.findById(req.params.id, function(error, keyword) {
-        if (error) {
-            return next(error);
-        }
-        keyword.update({$set: req.body}, function(error, count, raw){
-            if (error) {
-                return next(error);
-            }
-            res.send({affectedCount: count});
+    req.models.Keyword.findById(req.params.id).exec()
+        .then(function (keyword) {
+            return keyword.update({$set: req.body}).exec();
         })
-    });
+        .then(function (count) {
+            res.send({affectedCount: count});
+        }).onReject(err => next(err));
 };
 
 exports.delete = function(req, res, next){
-    req.models.Keyword.findById(req.params.id, function(error, keword) {
-        if (error) {
-            return next(error);
-        }
-        if (!keword) {
-            return next(new Error('article not found'));
-        }
-        keword.remove(function(error, doc){
-            if (error) {
-                return next(error);
+    req.models.Keyword.findById(req.params.id).exec()
+        .then(function(keyword){
+            if (!keyword) {
+                throw new Error('article not found');
             }
+            return keyword.remove().exec();
+        })
+        .then(function(doc){
             res.send(doc);
-        });
-    });};
+        }).onReject(err => next(err));
+};
 
 
 

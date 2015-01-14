@@ -6,7 +6,7 @@ declare module tt
         keyword: {
             get: any
             details: any
-            create: any
+            add: any
             edit: any
             delete: any
         };

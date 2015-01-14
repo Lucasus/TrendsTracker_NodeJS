@@ -40,7 +40,7 @@ var routes: tt.routes = require('./routes');
 app.get('/', routes.index);
 app.get('/api/keywords', routes.keyword.get);
 app.get('/api/keywords/:name', routes.keyword.details);
-app.post('/api/keywords', routes.keyword.create);
+app.post('/api/keywords', routes.keyword.add);
 app.post('/api/keywords/:id', routes.keyword.edit);
 app.delete('/api/keywords/:id', routes.keyword.delete);
 
